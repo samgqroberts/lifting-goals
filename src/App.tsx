@@ -1,24 +1,50 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <table>
+        <thead>
+          <tr>
+            <th>Lift</th>
+            <th>Milestone 1</th>
+            <th>Milestone 2</th>
+            <th>Milestone 3</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Squat</td>
+            <td>185</td>
+            <td>225</td>
+            <td>265</td>
+          </tr>
+          <tr>
+            <td>OHP</td>
+            <td>85</td>
+            <td>105</td>
+            <td>115</td>
+          </tr>
+          <tr>
+            <td>Deadlift</td>
+            <td>215</td>
+            <td>255</td>
+            <td>305</td>
+          </tr>
+          <tr>
+            <td>Row</td>
+            <td>120</td>
+            <td>145</td>
+            <td>175</td>
+          </tr>
+          <tr>
+            <td>Bench</td>
+            <td>130</td>
+            <td>155</td>
+            <td>185</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   );
 }
