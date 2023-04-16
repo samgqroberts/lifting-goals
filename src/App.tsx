@@ -1,5 +1,6 @@
 import { Fragment, useEffect, useState } from 'react';
 import './App.css';
+import { DraggableInput } from './DraggableInput';
 
 type Lift = 'squat' | 'bp' | 'row' | 'ohp' | 'dl'
 
@@ -205,27 +206,75 @@ function App() {
     }}>
       <div style={{display: 'flex', overflow: 'none'}}>
         <label htmlFor="bodyweight">Body Weight</label>
-        <input id='bodyWeight' value={bodyWeight} onChange={(e) => setBodyWeight(parseInt(e.target.value))}></input>
+        <DraggableInput
+          id="bodyweight"
+          value={bodyWeight}
+          onChange={(e) => setBodyWeight(e)}
+          step={1}
+          pixelsPerStep={1}
+          min={60}
+          max={600}
+        ></DraggableInput>
       </div>
       <div style={{display: 'flex', overflow: 'none'}}>
         <label htmlFor="currentSquat">Current Squat</label>
-        <input id='currentSquat' value={currentSquat} onChange={(e) => setCurrentSquat(parseInt(e.target.value))}></input>
+        <DraggableInput
+          id="currentSquat"
+          value={currentSquat}
+          onChange={(e) => setCurrentSquat(e)}
+          step={5}
+          pixelsPerStep={3}
+          min={zones.min['squat']}
+          max={zones.advanced['squat']}
+        ></DraggableInput>
       </div>
       <div style={{display: 'flex', overflow: 'none'}}>
         <label htmlFor="currentBp">Current BP</label>
-        <input id='currentBp' value={currentBp} onChange={(e) => setCurrentBp(parseInt(e.target.value))}></input>
+        <DraggableInput
+          id="currentBp"
+          value={currentBp}
+          onChange={(e) => setCurrentBp(e)}
+          step={5}
+          pixelsPerStep={3}
+          min={zones.min['bp']}
+          max={zones.advanced['bp']}
+        ></DraggableInput>
       </div>
       <div style={{display: 'flex', overflow: 'none'}}>
         <label htmlFor="currentRow">Current Row</label>
-        <input id='currentRow' value={currentRow} onChange={(e) => setCurrentRow(parseInt(e.target.value))}></input>
+        <DraggableInput
+          id="currentRow"
+          value={currentRow}
+          onChange={(e) => setCurrentRow(e)}
+          step={5}
+          pixelsPerStep={3}
+          min={zones.min['row']}
+          max={zones.advanced['row']}
+        ></DraggableInput>
       </div>
       <div style={{display: 'flex', overflow: 'none'}}>
         <label htmlFor="currentOhp">Current OHP</label>
-        <input id='currentOhp' value={currentOhp} onChange={(e) => setCurrentOhp(parseInt(e.target.value))}></input>
+        <DraggableInput
+          id="currentOhp"
+          value={currentOhp}
+          onChange={(e) => setCurrentOhp(e)}
+          step={5}
+          pixelsPerStep={3}
+          min={zones.min['ohp']}
+          max={zones.advanced['ohp']}
+        ></DraggableInput>
       </div>
       <div style={{display: 'flex', overflow: 'none'}}>
         <label htmlFor="currentDl">Current DL</label>
-        <input id='currentDl' value={currentDl} onChange={(e) => setCurrentDl(parseInt(e.target.value))}></input>
+        <DraggableInput
+          id="currentDl"
+          value={currentDl}
+          onChange={(e) => setCurrentDl(e)}
+          step={5}
+          pixelsPerStep={3}
+          min={zones.min['dl']}
+          max={zones.advanced['dl']}
+        ></DraggableInput>
       </div>
       <div style={{display: 'flex', flexDirection: 'column'}}>
         {LIFT_ORDER.map(lift => (
