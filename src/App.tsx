@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { LabeledDraggableInput } from './LabeledDraggableInput';
 import { Legend } from './Legend';
 import { computeZones, LIFT_ORDER, LiftSlice } from './Lifts';
+import { Ratios } from './Ratios';
 import { Row } from './Row';
 
 const InputRow: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -44,6 +45,8 @@ function App() {
       </div>
       {/* legend */}
       <Legend />
+      {/* ratios */}
+      <Ratios bodyWeight={bodyWeight} weights={currentWeights} />
       {/* inputs */}
       <div style={{ display: 'flex', flexDirection: 'column', marginTop: 'auto', marginBottom: 20 }}>
         {/* top row */}

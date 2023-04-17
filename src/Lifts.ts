@@ -61,3 +61,11 @@ export const computeZones = (bw: number): Zones => {
     },
   };
 };
+
+export const names = {
+  squat: 'Squat',
+  bp: 'Bench',
+  row: 'Row',
+  ohp: 'OHP',
+  dl: 'DL',
+} as const;

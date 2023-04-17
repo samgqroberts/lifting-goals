@@ -1,16 +1,8 @@
 import { Fragment } from 'react';
 
-import { Lift, LiftSlice, Zones } from './Lifts';
+import { Lift, LiftSlice, names, Zones } from './Lifts';
 import { colors, Red } from './styles';
 import { useWindowDimensions } from './useWindowDimensions';
-
-const names = {
-  squat: 'Squat',
-  bp: 'Bench',
-  row: 'Row',
-  ohp: 'OHP',
-  dl: 'DL',
-} as const;
 
 export const Row: React.FC<{ zones: Zones; currentWeights: LiftSlice; lift: Lift }> = ({
   zones,
