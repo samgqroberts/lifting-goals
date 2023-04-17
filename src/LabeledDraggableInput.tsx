@@ -1,4 +1,5 @@
 import { DraggableInput, DraggableInputChangeHandler } from "./DraggableInput";
+import { Red, White } from "./styles";
 import { OverrideDivProps, combineStyles } from "./utils";
 
 interface UniqueDraggableInputProps {
@@ -39,8 +40,8 @@ export const LabeledDraggableInput: React.FC<LabeledDraggableInputProps> = ({
                 borderRadius: '50%',
                 height: 30,
                 width: 30,
-                background: 'red',
-                color: 'white',
+                background: Red,
+                color: White,
                 textAlign: "center",
                 fontWeight: 'bold'
             }}

@@ -1,6 +1,7 @@
 import { Fragment } from "react";
 import { Lift, LiftSlice, Zones } from "./Lifts";
 import { useWindowDimensions } from "./useWindowDimensions";
+import { Red } from "./styles";
 
 const names = {
   squat: 'Squat',
@@ -67,7 +68,7 @@ export const Row: React.FC<{zones: Zones, currentWeights: LiftSlice, lift: Lift}
               height: 0,
               borderLeft: '6px solid transparent',
               borderRight: '6px solid transparent',
-              borderTop: '10px solid #f00',
+              borderTop: `10px solid ${Red}`,
               left: i * tickSpan - 5,
               top: -10
             }}/>
