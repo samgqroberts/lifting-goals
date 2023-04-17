@@ -23,10 +23,10 @@ export const Row: React.FC<{zones: Zones, currentWeights: LiftSlice, lift: Lift}
   const max = zones.advanced[lift];
   const ticks = Array.from(new Array(1 + (Math.max(max - min, 0)) / 5), (x, i) => i).map(x => min + x * 5)
   const labelWidth = 50;
-  const labelMargin = 5;
-  const lineMargin = 5;
-  const lineWidth = windowWidth - labelWidth - lineMargin;
-  const tickSpan = lineWidth / ticks.length;
+  const labelMarginLeft = 5;
+  const lineMarginRight = 10;
+  const lineWidth = windowWidth - labelWidth - lineMarginRight;
+  const tickSpan = lineWidth / (ticks.length - 1); // the extra 1 would dangle after the max
   const tickWidth = 1.5;
   return <div style={{
     display: 'flex',
@@ -39,7 +39,7 @@ export const Row: React.FC<{zones: Zones, currentWeights: LiftSlice, lift: Lift}
       whiteSpace: 'pre',
       fontSize: 12,
       fontWeight: 'bold',
-      marginLeft: labelMargin,
+      marginLeft: labelMarginLeft,
     }}>{names[lift]}</div>
     <div style={{
       position: 'absolute',
