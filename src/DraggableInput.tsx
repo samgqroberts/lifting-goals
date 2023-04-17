@@ -1,21 +1,20 @@
 import React, {
-  CSSProperties,
   useCallback,
   useEffect,
   useRef,
   useState
 } from 'react';
   
-import { isNumber } from './utils';
+import { combineStyles, isNumber } from './utils';
   
-export type InputWithDragChangeHandler = (
+export type DraggableInputChangeHandler = (
   value: number,
   input: HTMLInputElement | null
 ) => void;
 
 interface UniqueDraggableInputProps {
-  onChange?: InputWithDragChangeHandler;
-  onInput?: InputWithDragChangeHandler;
+  onChange?: DraggableInputChangeHandler;
+  onInput?: DraggableInputChangeHandler;
   value: number;
   /**
    * Amount value changes on drag
@@ -52,7 +51,7 @@ export const DraggableInput = ({
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [, setStartPos] = useState<[number, number]>([0, 0]);
   // style
-  const style: CSSProperties = { cursor: 'ew-resize', ...{ _style } };
+  const style = combineStyles({ cursor: 'ew-resize' }, _style);
   // generic handlers
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
