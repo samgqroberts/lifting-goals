@@ -5,5 +5,5 @@ export const colors = {
   noob: '#d63865',
   beginner: '#4350af',
   intermediate: '#d1dc59',
-  advanced: '#e15141'
+  advanced: '#e15141',
 } as const;

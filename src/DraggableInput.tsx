@@ -1,16 +1,8 @@
-import React, {
-  useCallback,
-  useEffect,
-  useRef,
-  useState
-} from 'react';
-  
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+
 import { combineStyles, isNumber } from './utils';
-  
-export type DraggableInputChangeHandler = (
-  value: number,
-  input: HTMLInputElement | null
-) => void;
+
+export type DraggableInputChangeHandler = (value: number, input: HTMLInputElement | null) => void;
 
 interface UniqueDraggableInputProps {
   onChange?: DraggableInputChangeHandler;
@@ -28,10 +20,8 @@ interface UniqueDraggableInputProps {
   max?: number;
 }
 
-type InputProps = Omit<
-  React.InputHTMLAttributes<HTMLInputElement>,
-  keyof UniqueDraggableInputProps
-> & UniqueDraggableInputProps;
+type InputProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, keyof UniqueDraggableInputProps> &
+  UniqueDraggableInputProps;
 
 export const DraggableInput = ({
   value: _value,
@@ -70,12 +60,12 @@ export const DraggableInput = ({
       startValue.current = _startValue;
       setStartPos(newStartPos);
     },
-    [value, props.defaultValue, props.min]
+    [value, props.defaultValue, props.min],
   );
   const handleMove = useCallback(
     (curMouseX: number) => {
-      setStartPos(pos => {
-        const [startMouseX,] = pos;
+      setStartPos((pos) => {
+        const [startMouseX] = pos;
         const mouseDiffX = curMouseX - startMouseX;
         const steps = mouseDiffX / pixelsPerStep;
         const delta = Math.round(steps) * step;
@@ -88,14 +78,14 @@ export const DraggableInput = ({
         return pos;
       });
     },
-    [max, min, pixelsPerStep, step, onInput, onChange]
+    [max, min, pixelsPerStep, step, onInput, onChange],
   );
   // mouse event (desktop) handlers
   const handleMouseMove = useCallback(
     (e: MouseEvent) => {
       handleMove(e.clientX);
     },
-    [handleMove]
+    [handleMove],
   );
   const handleMouseMoveEnd = useCallback(() => {
     document.removeEventListener('mousemove', handleMouseMove);
@@ -103,25 +93,31 @@ export const DraggableInput = ({
   }, [handleMouseMove]);
   const handleMouseDown = useCallback(
     (e: React.MouseEvent<HTMLInputElement>) => {
-      handleDragStart([e.clientX, e.clientY])
+      handleDragStart([e.clientX, e.clientY]);
       document.addEventListener('mousemove', handleMouseMove);
       document.addEventListener('mouseup', handleMouseMoveEnd);
     },
-    [handleMouseMove, handleMouseMoveEnd, handleDragStart]
+    [handleMouseMove, handleMouseMoveEnd, handleDragStart],
   );
   // touch event (mobile) handlers
-  const handleTouchMove = useCallback((e: TouchEvent) => {
-      handleMove(e.touches[0].clientX)
-  }, [handleMove]);
+  const handleTouchMove = useCallback(
+    (e: TouchEvent) => {
+      handleMove(e.touches[0].clientX);
+    },
+    [handleMove],
+  );
   const handleTouchEnd = useCallback(() => {
     document.removeEventListener('touchmove', handleTouchMove);
     document.removeEventListener('touchend', handleTouchEnd);
   }, [handleTouchMove]);
-  const handleTouchStart = useCallback((e: React.TouchEvent<HTMLInputElement>) => {
-    handleDragStart([e.touches[0].clientX, e.touches[0].clientY]);
-    document.addEventListener('touchmove', handleTouchMove)
-    document.addEventListener('touchend', handleTouchEnd)
-  }, [handleDragStart, handleTouchMove, handleTouchEnd]);
+  const handleTouchStart = useCallback(
+    (e: React.TouchEvent<HTMLInputElement>) => {
+      handleDragStart([e.touches[0].clientX, e.touches[0].clientY]);
+      document.addEventListener('touchmove', handleTouchMove);
+      document.addEventListener('touchend', handleTouchEnd);
+    },
+    [handleDragStart, handleTouchMove, handleTouchEnd],
+  );
   // ensure updates to value (including initial) set our internal value tracking state
   useEffect(() => {
     if (_value) {
@@ -147,4 +143,4 @@ export const DraggableInput = ({
       ref={inputRef}
     />
   );
-}
+};
