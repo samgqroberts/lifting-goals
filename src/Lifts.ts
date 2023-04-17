@@ -22,7 +22,43 @@ export const roundTo5 = (value: number): number => {
   return Math.round(value / 5) * 5;
 };
 
-export const computeZones = (bw: number): Zones => {
+const ormBwRatiosFromNippard = {
+  beginner: {
+    squat: 1.25,
+    bp: 1,
+    row: 0.9,
+    ohp: 0.55,
+    dl: 1.5,
+  },
+  intermediate: {
+    squat: 1.75,
+    bp: 1.5,
+    row: 1.25,
+    ohp: 0.75,
+    dl: 2.25,
+  },
+  advanced: {
+    squat: 2.5,
+    bp: 2,
+    row: 1.75,
+    ohp: 1.05,
+    dl: 3,
+  },
+} as const;
+
+const to5x5FromOrm = (ormWeight: number): number => {
+  return ormWeight * 0.8;
+};
+
+const computeFromRatio = (bw: number, ratio: number, orm = true): number => {
+  let value = bw * ratio;
+  if (!orm) {
+    value = to5x5FromOrm(value);
+  }
+  return roundTo5(value);
+};
+
+export const computeZones = (bw: number, orm = false): Zones => {
   return {
     min: {
       squat: 45,
@@ -39,25 +75,25 @@ export const computeZones = (bw: number): Zones => {
       dl: 135,
     },
     beginner: {
-      squat: roundTo5(1.25 * bw),
-      bp: roundTo5(1 * bw),
-      row: roundTo5(0.9 * bw),
-      ohp: roundTo5(0.55 * bw),
-      dl: roundTo5(1.5 * bw),
+      squat: computeFromRatio(bw, ormBwRatiosFromNippard.beginner.squat, orm),
+      bp: computeFromRatio(bw, ormBwRatiosFromNippard.beginner.bp, orm),
+      row: computeFromRatio(bw, ormBwRatiosFromNippard.beginner.row, orm),
+      ohp: computeFromRatio(bw, ormBwRatiosFromNippard.beginner.ohp, orm),
+      dl: computeFromRatio(bw, ormBwRatiosFromNippard.beginner.dl, orm),
     },
     intermediate: {
-      squat: roundTo5(1.75 * bw),
-      bp: roundTo5(1.5 * bw),
-      row: roundTo5(1.25 * bw),
-      ohp: roundTo5(0.75 * bw),
-      dl: roundTo5(2.25 * bw),
+      squat: computeFromRatio(bw, ormBwRatiosFromNippard.intermediate.squat, orm),
+      bp: computeFromRatio(bw, ormBwRatiosFromNippard.intermediate.bp, orm),
+      row: computeFromRatio(bw, ormBwRatiosFromNippard.intermediate.row, orm),
+      ohp: computeFromRatio(bw, ormBwRatiosFromNippard.intermediate.ohp, orm),
+      dl: computeFromRatio(bw, ormBwRatiosFromNippard.intermediate.dl, orm),
     },
     advanced: {
-      squat: roundTo5(2.5 * bw),
-      bp: roundTo5(2 * bw),
-      row: roundTo5(1.75 * bw),
-      ohp: roundTo5(1.05 * bw),
-      dl: roundTo5(3 * bw),
+      squat: computeFromRatio(bw, ormBwRatiosFromNippard.advanced.squat, orm),
+      bp: computeFromRatio(bw, ormBwRatiosFromNippard.advanced.bp, orm),
+      row: computeFromRatio(bw, ormBwRatiosFromNippard.advanced.row, orm),
+      ohp: computeFromRatio(bw, ormBwRatiosFromNippard.advanced.ohp, orm),
+      dl: computeFromRatio(bw, ormBwRatiosFromNippard.advanced.dl, orm),
     },
   };
 };

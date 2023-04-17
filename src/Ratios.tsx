@@ -21,7 +21,7 @@ export const Ratios: React.FC<{
       <div style={{ display: 'flex', flexDirection: 'column' }}>
         <span style={{ fontWeight: 'bold', marginBottom: 5 }}>% of Squat</span>
         {([null, 'bp', 'row', 'ohp', 'dl'] as const).map((lift) => {
-          if (!lift) return <span>&nbsp;</span>;
+          if (!lift) return <span key={lift}>&nbsp;</span>;
           return (
             <span key={lift}>
               {percentify(weights[lift] / weights.squat)} {names[lift]}
