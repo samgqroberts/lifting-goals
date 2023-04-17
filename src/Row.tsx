@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import { Lift, LiftSlice, Zones } from "./Lifts";
 import { useWindowDimensions } from "./useWindowDimensions";
-import { Red } from "./styles";
+import { Red, colors } from "./styles";
 
 const names = {
   squat: 'Squat',
@@ -9,13 +9,6 @@ const names = {
   row: 'Row',
   ohp: 'OHP',
   dl: 'DL'
-} as const;
-
-const colors = {
-  noob: '#d63865',
-  beginner: '#4350af',
-  intermediate: '#d1dc59',
-  advanced: '#e15141'
 } as const;
 
 export const Row: React.FC<{zones: Zones, currentWeights: LiftSlice, lift: Lift}> = ({ zones, currentWeights, lift }) => {

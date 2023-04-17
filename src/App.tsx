@@ -3,6 +3,7 @@ import './App.css';
 import { LabeledDraggableInput } from './LabeledDraggableInput';
 import { LIFT_ORDER, LiftSlice, computeZones } from './Lifts';
 import { Row } from './Row';
+import { Legend } from './Legend';
 
 const InputRow: React.FC<{children: React.ReactNode}> = ({children}) => {
   return (
@@ -42,6 +43,8 @@ function App() {
           <Row key={lift} {...{zones, currentWeights, lift}} />
         ))}
       </div>
+      {/* legend */}
+      <Legend />
       {/* inputs */}
       <div style={{display: 'flex', flexDirection: 'column', marginTop: 'auto', marginBottom: 20}}>
         {/* top row */}
