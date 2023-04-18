@@ -2,6 +2,7 @@ import './App.css';
 
 import { useState } from 'react';
 
+import { Bottom } from './Bottom';
 import { Distances } from './Distances';
 import { Inputs } from './Inputs';
 import { Legend } from './Legend';
@@ -55,6 +56,7 @@ function App() {
           setCurrentDl,
         }}
       />
+      <Bottom />
     </div>
   );
 }
