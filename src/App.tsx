@@ -2,6 +2,7 @@ import './App.css';
 
 import { useState } from 'react';
 
+import { Distances } from './Distances';
 import { LabeledDraggableInput } from './LabeledDraggableInput';
 import { Legend } from './Legend';
 import { computeZones, LIFT_ORDER, LiftSlice } from './Lifts';
@@ -47,6 +48,8 @@ function App() {
       <Legend />
       {/* ratios */}
       <Ratios bodyWeight={bodyWeight} weights={currentWeights} />
+      {/* distance to goals */}
+      <Distances {...{ currentWeights, zones }} />
       {/* inputs */}
       <div style={{ display: 'flex', flexDirection: 'column', marginTop: 'auto', marginBottom: 20 }}>
         {/* top row */}
