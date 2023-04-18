@@ -7,7 +7,7 @@ const findCurrentLevel = (zones: Zones, lift: Lift, currentWeights: LiftSlice): 
   return (
     levels.find((level) => {
       const threshold = zones[level][lift];
-      if (currentWeights[lift] < threshold) return level;
+      return currentWeights[lift] < threshold;
     }) || null
   );
 };

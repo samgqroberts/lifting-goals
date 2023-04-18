@@ -63,11 +63,14 @@ export const DraggableInput = ({
     [value, props.defaultValue, props.min],
   );
   const handleMove = useCallback(
-    (curMouseX: number) => {
+    ([curMouseX, curMouseY]: [number, number]) => {
       setStartPos((pos) => {
-        const [startMouseX] = pos;
+        const [startMouseX, startMouseY] = pos;
         const mouseDiffX = curMouseX - startMouseX;
-        const steps = mouseDiffX / pixelsPerStep;
+        const mouseDiffY = -1 * (curMouseY - startMouseY); // -1 to make "up" make value larger
+        const stepsX = mouseDiffX / pixelsPerStep;
+        const stepsY = mouseDiffY / pixelsPerStep;
+        const steps = stepsX + stepsY;
         const delta = Math.round(steps) * step;
         let newValue = startValue.current + delta;
         if (min) newValue = Math.max(newValue, min);
@@ -83,7 +86,7 @@ export const DraggableInput = ({
   // mouse event (desktop) handlers
   const handleMouseMove = useCallback(
     (e: MouseEvent) => {
-      handleMove(e.clientX);
+      handleMove([e.clientX, e.clientY]);
     },
     [handleMove],
   );
@@ -102,7 +105,8 @@ export const DraggableInput = ({
   // touch event (mobile) handlers
   const handleTouchMove = useCallback(
     (e: TouchEvent) => {
-      handleMove(e.touches[0].clientX);
+      const touch = e.touches[0];
+      handleMove([touch.clientX, touch.clientY]);
     },
     [handleMove],
   );
