@@ -3,15 +3,11 @@ import './App.css';
 import { useState } from 'react';
 
 import { Distances } from './Distances';
-import { LabeledDraggableInput } from './LabeledDraggableInput';
+import { Inputs } from './Inputs';
 import { Legend } from './Legend';
-import { computeZones, LIFT_ORDER, LiftSlice } from './Lifts';
+import { computeZones, LiftSlice } from './Lifts';
 import { Ratios } from './Ratios';
-import { Row } from './Row';
-
-const InputRow: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  return <div style={{ display: 'flex', justifyContent: 'space-evenly', marginTop: 30 }}>{children}</div>;
-};
+import { Sliders } from './Sliders';
 
 function App() {
   const [bodyWeight, setBodyWeight] = useState(190);
@@ -38,81 +34,27 @@ function App() {
         fontSize: 14,
       }}
     >
-      {/* sliders */}
-      <div style={{ display: 'flex', flexDirection: 'column' }}>
-        {LIFT_ORDER.map((lift) => (
-          <Row key={lift} {...{ zones, currentWeights, lift }} />
-        ))}
-      </div>
-      {/* legend */}
+      <Sliders {...{ zones, currentWeights }} />
       <Legend />
-      {/* ratios */}
       <Ratios bodyWeight={bodyWeight} weights={currentWeights} />
-      {/* distance to goals */}
       <Distances {...{ currentWeights, zones }} />
-      {/* inputs */}
-      <div style={{ display: 'flex', flexDirection: 'column', marginTop: 'auto', marginBottom: 20 }}>
-        {/* top row */}
-        <InputRow>
-          <LabeledDraggableInput
-            label="Body Weight"
-            value={bodyWeight}
-            onChange={(e) => setBodyWeight(e)}
-            step={1}
-            pixelsPerStep={1}
-            min={60}
-            max={600}
-          />
-          <LabeledDraggableInput
-            label="Squat"
-            value={currentSquat}
-            onChange={(e) => setCurrentSquat(e)}
-            step={5}
-            pixelsPerStep={3}
-            min={zones.min['squat']}
-            max={zones.advanced['squat']}
-          />
-          <LabeledDraggableInput
-            label="Bench"
-            value={currentBp}
-            onChange={(e) => setCurrentBp(e)}
-            step={5}
-            pixelsPerStep={3}
-            min={zones.min['bp']}
-            max={zones.advanced['bp']}
-          />
-        </InputRow>
-        {/* bottom row */}
-        <InputRow>
-          <LabeledDraggableInput
-            label="Row"
-            value={currentRow}
-            onChange={(e) => setCurrentRow(e)}
-            step={5}
-            pixelsPerStep={3}
-            min={zones.min['row']}
-            max={zones.advanced['row']}
-          />
-          <LabeledDraggableInput
-            label="OHP"
-            value={currentOhp}
-            onChange={(e) => setCurrentOhp(e)}
-            step={5}
-            pixelsPerStep={3}
-            min={zones.min['ohp']}
-            max={zones.advanced['ohp']}
-          />
-          <LabeledDraggableInput
-            label="Deadlift"
-            value={currentDl}
-            onChange={(e) => setCurrentDl(e)}
-            step={5}
-            pixelsPerStep={3}
-            min={zones.min['dl']}
-            max={zones.advanced['dl']}
-          />
-        </InputRow>
-      </div>
+      <Inputs
+        {...{
+          zones,
+          bodyWeight,
+          currentSquat,
+          currentBp,
+          currentRow,
+          currentOhp,
+          currentDl,
+          setBodyWeight,
+          setCurrentSquat,
+          setCurrentBp,
+          setCurrentRow,
+          setCurrentOhp,
+          setCurrentDl,
+        }}
+      />
     </div>
   );
 }
