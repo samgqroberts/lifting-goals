@@ -76,11 +76,11 @@ export const Bottom: React.FC = () => {
                   the ratios between your lifts.
                 </div>
                 <div style={{ padding: 15 }}>
-                  Input your current 5x5 data using the circular inputs on the bottom of your screen. Click or touch and
+                  Input your current 5x5 data using the circular inputs on the bottom of your screen. Click or touch and
                   drag to change values. Your data is stored locally in your browser.
                 </div>
                 <div style={{ padding: 15 }}>
-                  Goal values as a function of body weight are derived from Jeff Nippard's excellent video{' '}
+                  Goal values as a function of body weight are derived from Jeff Nippard&apos;s excellent video{' '}
                   <a href="https://www.youtube.com/watch?v=LrDJXIQ_-eg">How Strong Should You Be? (Noob To Freak)</a>,
                   adjusted down by 80% to shift from one rep max to 5x5 values.
                 </div>
