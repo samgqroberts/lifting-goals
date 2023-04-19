@@ -69,15 +69,15 @@ export const Bottom: React.FC = () => {
                     padding: '10px 15px',
                   }}
                 >
-                  StrongLifts Goals
+                  5x5 Goals
                 </h2>
                 <div style={{ padding: 15 }}>
                   A dashboard to view your lifting progress, in relation to relative milestones. Also helps to visualize
                   the ratios between your lifts.
                 </div>
                 <div style={{ padding: 15 }}>
-                  Input your current StrongLifts data using the circular inputs on the bottom of your screen. Click or
-                  touch and drag to change values. Your data is stored locally in your browser.
+                  Input your current 5x5 data using the circular inputs on the bottom of your screen. Click or touch and
+                  drag to change values. Your data is stored locally in your browser.
                 </div>
                 <div style={{ padding: 15 }}>
                   Goal values as a function of body weight are derived from Jeff Nippard's excellent video{' '}
@@ -86,7 +86,7 @@ export const Bottom: React.FC = () => {
                 </div>
                 <div style={{ padding: 15 }}>
                   The workouts and values here are based on the{' '}
-                  <a href="https://stronglifts.com/5x5/">Stronglifts 5x5 workout plan</a>. However, this is NOT an
+                  <a href="https://stronglifts.com/5x5/">StrongLifts 5x5 workout plan</a>. However, this is NOT an
                   official app of the StrongLifts brand.
                 </div>
                 <div style={{ marginTop: 'auto', padding: 15, paddingBottom: 5 }}>Created by samgqroberts</div>
