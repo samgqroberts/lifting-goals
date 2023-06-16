@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { Lift, LIFT_ORDER, LiftSlice, names, Threshold, Thresholds } from './Lifts';
 import { Red } from './styles';
 
@@ -40,54 +42,83 @@ export const DistancesOld: React.FC<{ currentWeights: LiftSlice; thresholds: Thr
   );
 };
 
+const arrowheadHeight = 8;
+const arrowheadLength = 20;
+const arrowHeight = 4;
+const arrowLength = 90;
+const fontSize = 10;
+
+export const Distance: React.FC<{ lift: Lift; thresholds: Thresholds; currentWeights: LiftSlice }> = ({
+  lift,
+  thresholds,
+  currentWeights,
+}) => {
+  const nextLevel = getNextThreshold(thresholds, lift, currentWeights);
+  const distance = distanceToLevel(lift, nextLevel, currentWeights);
+  return (
+    <div style={{ display: 'flex', alignItems: 'center' }}>
+      <span style={{ marginRight: 5, width: 45, textAlign: 'right' }}>{names[lift]}</span>
+      <div
+        style={{
+          height: arrowHeight,
+          position: 'relative',
+          width: arrowLength + arrowheadLength,
+          margin: '16px 0',
+        }}
+      >
+        <div
+          style={{
+            height: arrowHeight,
+            width: arrowLength,
+            background: Red,
+            position: 'relative',
+            fontSize,
+            fontWeight: 'bold',
+          }}
+        >
+          <span style={{ position: 'absolute', top: -1.2 * fontSize, width: arrowLength, textAlign: 'center' }}>
+            {distance && `${distance.pounds} lb`}
+          </span>
+          <span style={{ position: 'absolute', top: arrowHeight, width: arrowLength, textAlign: 'center' }}>
+            {distance && `${distance.sessions} ${distance.sessions === 1 ? 'session' : 'sessions'}`}
+          </span>
+        </div>
+        <div
+          style={{
+            width: 0,
+            height: 0,
+            borderTop: `${arrowheadHeight}px solid transparent`,
+            borderBottom: `${arrowheadHeight}px solid transparent`,
+            borderLeft: `${arrowheadLength}px solid ${Red}`,
+            position: 'absolute',
+            right: 0,
+            top: -arrowheadHeight + arrowHeight / 2,
+          }}
+        ></div>
+      </div>
+      <span style={{ marginLeft: 5 }}>{nextLevel?.goalName}</span>
+    </div>
+  );
+};
+
 export const Distances: React.FC<{ currentWeights: LiftSlice; thresholds: Thresholds }> = ({
   currentWeights,
   thresholds,
 }) => {
-  const arrowheadHeight = 16;
-  const arrowheadLength = 32;
-  const arrowHeight = 8;
-  const arrowLength = 90;
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', padding: '0 10px', margin: '0 auto', marginTop: 16 }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        padding: '0 10px',
+        margin: '0 auto',
+        marginTop: 12,
+        fontWeight: 'bold',
+        fontSize: 12,
+      }}
+    >
       {LIFT_ORDER.map((lift) => {
-        const nextLevel = getNextThreshold(thresholds, lift, currentWeights);
-        const distance = distanceToLevel(lift, nextLevel, currentWeights);
-        return (
-          <div key={lift} style={{ display: 'flex', alignItems: 'center', margin: '4px 0' }}>
-            <span style={{ marginRight: 5, width: 45 }}>{names[lift]}</span>
-            <div
-              style={{
-                height: arrowHeight,
-                position: 'relative',
-                width: arrowLength + arrowheadLength,
-                margin: '16px 0',
-              }}
-            >
-              <div style={{ height: arrowHeight, width: arrowLength, background: Red, position: 'relative' }}>
-                <span style={{ position: 'absolute', top: -2 * arrowHeight, width: arrowLength, textAlign: 'center' }}>
-                  {distance && `${distance.pounds} lb`}
-                </span>
-                <span style={{ position: 'absolute', top: arrowHeight, width: arrowLength, textAlign: 'center' }}>
-                  {distance && `${distance.sessions} ${distance.sessions === 1 ? 'session' : 'sessions'}`}
-                </span>
-              </div>
-              <div
-                style={{
-                  width: 0,
-                  height: 0,
-                  borderTop: `${arrowheadHeight}px solid transparent`,
-                  borderBottom: `${arrowheadHeight}px solid transparent`,
-                  borderLeft: `${arrowheadLength}px solid ${Red}`,
-                  position: 'absolute',
-                  right: 0,
-                  top: -arrowheadHeight / 2 - arrowHeight / 2,
-                }}
-              ></div>
-            </div>
-            <span style={{ marginLeft: 5 }}>{nextLevel?.goalName}</span>
-          </div>
-        );
+        return <Distance key={lift} {...{ lift, currentWeights, thresholds }} />;
       })}
     </div>
   );

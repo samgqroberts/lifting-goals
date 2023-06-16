@@ -100,7 +100,7 @@ export const Ratios: React.FC<{
       style={{
         display: 'flex',
         flexDirection: 'column',
-        marginTop: 24,
+        marginTop: 12,
         padding: '0px 10px',
       }}
     >

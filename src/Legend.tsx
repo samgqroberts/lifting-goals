@@ -18,6 +18,8 @@ export const Legend: React.FC<{ goals: Goal[] }> = ({ goals }) => {
                 width: '25%',
                 alignItems: 'center',
                 marginTop: `${i * lineWidth}px`,
+                fontSize: 8,
+                fontWeight: 'bold',
               }}
             >
               <span>{goal.name}</span>

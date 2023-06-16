@@ -2,7 +2,7 @@ import { LabeledDraggableInput } from './LabeledDraggableInput';
 import { LiftSlice } from './Lifts';
 
 const InputRow: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  return <div style={{ display: 'flex', justifyContent: 'space-evenly', marginTop: 30 }}>{children}</div>;
+  return <div style={{ display: 'flex', justifyContent: 'space-evenly', marginTop: 14, width: '80%' }}>{children}</div>;
 };
 
 export const Inputs: React.FC<{
@@ -39,7 +39,7 @@ export const Inputs: React.FC<{
   const step = asRatio ? 0.01 : 5;
   const pixelsPerStep = asRatio ? 2 : 3;
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', marginTop: 'auto', marginBottom: 20 }}>
+    <div style={{ display: 'flex', flexDirection: 'column', marginTop: 'auto', alignItems: 'center' }}>
       {/* top row */}
       <InputRow>
         {bodyWeightInfo && (
