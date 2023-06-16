@@ -31,7 +31,7 @@ const RatioRow: React.FC<{
         </span>
         <div
           style={{
-            height: '80%',
+            height: proportionLeft === null ? '80%' : '65%',
             background: proportionLeft === null ? 'grey' : '#32a852',
             width: `${derivedProportionLeft * 70}%`,
           }}
@@ -54,7 +54,7 @@ const RatioRow: React.FC<{
       <div style={{ display: 'flex', flexGrow: 1, alignItems: 'center' }}>
         <div
           style={{
-            height: '80%',
+            height: proportionRight === null ? '80%' : '65%',
             background: proportionRight === null ? 'grey' : '#666bff',
             width: `${derivedProportionRight * 70}%`,
             visibility: skipRight ? 'hidden' : 'inherit',
@@ -100,7 +100,7 @@ export const Ratios: React.FC<{
       style={{
         display: 'flex',
         flexDirection: 'column',
-        marginTop: 15,
+        marginTop: 24,
         padding: '0px 10px',
       }}
     >
