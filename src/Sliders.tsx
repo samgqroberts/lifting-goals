@@ -11,7 +11,8 @@ const Row: React.FC<{ thresholds: Thresholds; currentWeights: LiftSlice; lift: L
 }) => {
   const { width: windowWidth } = useWindowDimensions();
   const min = minimums[lift];
-  const max = thresholds[lift][thresholds[lift].length - 1].value;
+  const defaultMax = thresholds[lift][thresholds[lift].length - 1].value;
+  const max = Math.max(defaultMax, currentWeights[lift]);
   const ticks = Array.from(new Array(1 + Math.max(max - min, 0) / 5), (x, i) => i).map((x) => min + x * 5);
   const labelWidth = 50;
   const labelMarginLeft = 5;
