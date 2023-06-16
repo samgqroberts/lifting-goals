@@ -1,13 +1,17 @@
 import { Fragment } from 'react';
 
-import { Lift, LIFT_ORDER, LiftSlice, names, Zones } from './Lifts';
-import { colors, Red } from './styles';
+import { Lift, LIFT_ORDER, LiftSlice, minimums, names, Thresholds } from './Lifts';
+import { colorForZoneIndex, Red } from './styles';
 import { useWindowDimensions } from './useWindowDimensions';
 
-const Row: React.FC<{ zones: Zones; currentWeights: LiftSlice; lift: Lift }> = ({ zones, currentWeights, lift }) => {
+const Row: React.FC<{ thresholds: Thresholds; currentWeights: LiftSlice; lift: Lift }> = ({
+  thresholds,
+  currentWeights,
+  lift,
+}) => {
   const { width: windowWidth } = useWindowDimensions();
-  const min = zones.min[lift];
-  const max = zones.advanced[lift];
+  const min = minimums[lift];
+  const max = thresholds[lift][thresholds[lift].length - 1].value;
   const ticks = Array.from(new Array(1 + Math.max(max - min, 0) / 5), (x, i) => i).map((x) => min + x * 5);
   const labelWidth = 50;
   const labelMarginLeft = 5;
@@ -45,21 +49,9 @@ const Row: React.FC<{ zones: Zones; currentWeights: LiftSlice; lift: Lift }> = (
         }}
       >
         {ticks.map((tick, i) => {
-          const color =
-            tick < zones.noob[lift]
-              ? colors.noob
-              : tick < zones.beginner[lift]
-              ? colors.beginner
-              : tick < zones.intermediate[lift]
-              ? colors.intermediate
-              : colors.advanced;
-          const indicator = [
-            zones.min[lift],
-            zones.noob[lift],
-            zones.beginner[lift],
-            zones.intermediate[lift],
-            zones.advanced[lift],
-          ].includes(tick);
+          const zoneIndex = thresholds[lift].find((threshold) => tick < threshold.value)?.goalIndex || 0;
+          const color = colorForZoneIndex(zoneIndex);
+          const indicator = [minimums[lift], ...thresholds[lift].map((threshold) => threshold.value)].includes(tick);
           return (
             <Fragment key={tick}>
               <div
@@ -109,11 +101,14 @@ const Row: React.FC<{ zones: Zones; currentWeights: LiftSlice; lift: Lift }> = (
   );
 };
 
-export const Sliders: React.FC<{ zones: Zones; currentWeights: LiftSlice }> = ({ zones, currentWeights }) => {
+export const Sliders: React.FC<{ thresholds: Thresholds; currentWeights: LiftSlice }> = ({
+  thresholds,
+  currentWeights,
+}) => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       {LIFT_ORDER.map((lift) => (
-        <Row key={lift} {...{ zones, currentWeights, lift }} />
+        <Row key={lift} {...{ thresholds, currentWeights, lift }} />
       ))}
     </div>
   );

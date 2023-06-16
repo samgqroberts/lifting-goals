@@ -1,19 +1,23 @@
-import { LiftSlice, names } from './Lifts';
+import { LiftSlice, names, roundTo5 } from './Lifts';
 
 const percentify = (value: number) => `${(value * 100).toFixed(1)}%`;
 
 export const Ratios: React.FC<{
   bodyWeight: number;
   weights: LiftSlice;
-}> = ({ bodyWeight, weights }) => {
+  bodyWeightAsWeight?: boolean;
+}> = ({ bodyWeight, weights, bodyWeightAsWeight = false }) => {
   return (
     <div style={{ display: 'flex', justifyContent: 'space-evenly', marginTop: 15 }}>
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'end' }}>
-        <span style={{ fontWeight: 'bold', marginBottom: 5 }}>% of BW</span>
+        <span style={{ fontWeight: 'bold', marginBottom: 5 }}>At current BW ({bodyWeight} lb)</span>
         {(['squat', 'bp', 'row', 'ohp', 'dl'] as const).map((lift) => {
           return (
             <span key={lift}>
-              {names[lift]} {percentify(weights[lift] / bodyWeight)}
+              {names[lift]}{' '}
+              {bodyWeightAsWeight
+                ? `${roundTo5(weights[lift] * bodyWeight)} lb`
+                : percentify(weights[lift] / bodyWeight)}
             </span>
           );
         })}

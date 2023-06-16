@@ -6,18 +6,28 @@ import { Bottom } from './Bottom';
 import { Distances } from './Distances';
 import { Inputs } from './Inputs';
 import { Legend } from './Legend';
-import { computeZones, LiftSlice } from './Lifts';
+import {
+  beginnerValuesFromNippard,
+  computeThresholds,
+  Goal,
+  LiftSlice,
+  maximums,
+  minimums,
+  NIPPARD_GOALS,
+} from './Lifts';
 import { Ratios } from './Ratios';
 import { Sliders } from './Sliders';
 
 function App() {
-  const [bodyWeight, setBodyWeight] = useState(190);
-  const zones = computeZones(bodyWeight);
-  const [currentSquat, setCurrentSquat] = useState(zones.noob.squat);
-  const [currentBp, setCurrentBp] = useState(zones.noob.bp);
-  const [currentRow, setCurrentRow] = useState(zones.noob.row);
-  const [currentOhp, setCurrentOhp] = useState(zones.noob.ohp);
-  const [currentDl, setCurrentDl] = useState(zones.noob.dl);
+  const [goals, setGoals] = useState<Goal[]>(NIPPARD_GOALS);
+  const bodyWeightInfo = useState(190);
+  const [bodyWeight, setBodyWeight] = bodyWeightInfo;
+  const thresholds = computeThresholds(goals, bodyWeight);
+  const [currentSquat, setCurrentSquat] = useState(beginnerValuesFromNippard.squat as number);
+  const [currentBp, setCurrentBp] = useState(beginnerValuesFromNippard.bp as number);
+  const [currentRow, setCurrentRow] = useState(beginnerValuesFromNippard.row as number);
+  const [currentOhp, setCurrentOhp] = useState(beginnerValuesFromNippard.ohp as number);
+  const [currentDl, setCurrentDl] = useState(beginnerValuesFromNippard.dl as number);
   const currentWeights: LiftSlice = {
     squat: currentSquat,
     bp: currentBp,
@@ -35,13 +45,16 @@ function App() {
         fontSize: 14,
       }}
     >
-      <Sliders {...{ zones, currentWeights }} />
-      <Legend />
+      <Sliders {...{ thresholds, currentWeights }} />
+      <Legend {...{ goals }} />
       <Ratios bodyWeight={bodyWeight} weights={currentWeights} />
-      <Distances {...{ currentWeights, zones }} />
+      <Distances {...{ currentWeights, thresholds }} />
       <Inputs
         {...{
-          zones,
+          minimums: minimums,
+          maximums: maximums,
+          asRatio: false,
+          bodyWeightInfo,
           bodyWeight,
           currentSquat,
           currentBp,
@@ -56,7 +69,7 @@ function App() {
           setCurrentDl,
         }}
       />
-      <Bottom />
+      <Bottom {...{ bodyWeight, goals, setGoals }} />
     </div>
   );
 }
