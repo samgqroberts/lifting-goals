@@ -21,28 +21,29 @@ export const HelpModal: React.FC<{
       >
         5x5 Goals
       </h2>
-      <div style={{ padding: 15 }}>
-        A dashboard to view your lifting progress, in relation to relative milestones. Also helps to visualize the
-        ratios between your lifts.
+      <div style={{ padding: '8px 15px', fontSize: 14 }}>
+        This app offers a dashboard view of your 5x5 lifting progress. It helps to contextualize where you are in
+        relation to goals you can set. It also helps to visualize comparisons of your exercise weights.
       </div>
-      <div style={{ padding: 15 }}>
-        Input your current 5x5 data using the circular inputs on the bottom of your screen. Click or touch and drag to
+      <div style={{ padding: '8px 15px', fontSize: 14 }}>
+        Use the circular inputs on the bottom of your screen to set your current 5x5 data. Click or touch and drag to
         change values. Your data is stored locally in your browser.
       </div>
-      <div style={{ padding: 15 }}>
-        Goal values as a function of body weight are derived from Jeff Nippard&apos;s excellent video{' '}
+      <div style={{ padding: '8px 15px', fontSize: 14 }}>
+        Default goal values have been set as a function of your body weight. Their proportions are derived from Jeff
+        Nippard&apos;s excellent video{' '}
         <a href="https://www.youtube.com/watch?v=LrDJXIQ_-eg">How Strong Should You Be? (Noob To Freak)</a>, adjusted
         down by 80% to shift from one rep max to 5x5 values.
       </div>
-      <div style={{ padding: 15 }}>
-        For more information about ratios, check out <a href="https://symmetricstrength.com/">Symmetric Strength</a>.
+      <div style={{ padding: '8px 15px', fontSize: 14 }}>
+        Use the settings icon to update these goals and set your own.
       </div>
-      <div style={{ padding: 15 }}>
+      <div style={{ padding: '8px 15px', fontSize: 14 }}>
         The workouts and values here are based on the{' '}
         <a href="https://stronglifts.com/5x5/">StrongLifts 5x5 workout plan</a>. However, this is NOT an official app of
         the StrongLifts brand.
       </div>
-      <div style={{ marginTop: 'auto', padding: 15, paddingBottom: 5 }}>Created by samgqroberts</div>
+      <div style={{ marginTop: 'auto', fontSize: 14, padding: '8px 15px' }}>Created by samgqroberts</div>
     </Modal>
   );
 };
