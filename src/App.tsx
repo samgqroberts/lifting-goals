@@ -47,8 +47,8 @@ function App() {
     >
       <Sliders {...{ thresholds, currentWeights }} />
       <Legend {...{ goals }} />
-      <Ratios bodyWeight={bodyWeight} weights={currentWeights} />
       <Distances {...{ currentWeights, thresholds }} />
+      <Ratios bodyWeight={bodyWeight} weights={currentWeights} />
       <Inputs
         {...{
           minimums: minimums,

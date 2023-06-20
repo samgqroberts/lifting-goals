@@ -2,6 +2,9 @@ import { LiftSlice, roundTo5 } from './Lifts';
 
 const percentify = (value: number) => `${(value * 100).toFixed(0)}%`;
 
+const Grey = '#968b8a';
+const LightRed = '#db655e';
+
 const RatioRow: React.FC<{
   skipRight?: boolean;
   name: string;
@@ -32,7 +35,7 @@ const RatioRow: React.FC<{
         <div
           style={{
             height: proportionLeft === null ? '80%' : '65%',
-            background: proportionLeft === null ? 'grey' : '#32a852',
+            background: proportionLeft === null ? Grey : LightRed,
             width: `${derivedProportionLeft * 70}%`,
           }}
         />
@@ -55,7 +58,7 @@ const RatioRow: React.FC<{
         <div
           style={{
             height: proportionRight === null ? '80%' : '65%',
-            background: proportionRight === null ? 'grey' : '#666bff',
+            background: proportionRight === null ? Grey : LightRed,
             width: `${derivedProportionRight * 70}%`,
             visibility: skipRight ? 'hidden' : 'inherit',
           }}

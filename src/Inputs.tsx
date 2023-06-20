@@ -1,11 +1,13 @@
 import { LabeledDraggableInput } from './LabeledDraggableInput';
 import { LiftSlice } from './Lifts';
+import { combineStyles } from './utils';
 
 const InputRow: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return <div style={{ display: 'flex', justifyContent: 'space-evenly', marginTop: 14, width: '80%' }}>{children}</div>;
 };
 
 export const Inputs: React.FC<{
+  style?: React.CSSProperties;
   minimums: LiftSlice;
   maximums: LiftSlice;
   asRatio: boolean;
@@ -21,6 +23,7 @@ export const Inputs: React.FC<{
   setCurrentOhp: (value: number) => void;
   setCurrentDl: (value: number) => void;
 }> = ({
+  style,
   minimums,
   maximums,
   asRatio,
@@ -39,7 +42,12 @@ export const Inputs: React.FC<{
   const step = asRatio ? 0.01 : 5;
   const pixelsPerStep = asRatio ? 2 : 3;
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', marginTop: 'auto', alignItems: 'center' }}>
+    <div
+      style={combineStyles(
+        { display: 'flex', flexDirection: 'column', marginTop: 'auto', alignItems: 'center' },
+        style,
+      )}
+    >
       {/* top row */}
       <InputRow>
         {bodyWeightInfo && (
