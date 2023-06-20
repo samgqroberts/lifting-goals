@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { HelpModal } from './HelpModal';
 import { Goal } from './Lifts';
@@ -31,9 +31,15 @@ export const Bottom: React.FC<{
   bodyWeight: number;
   goals: Goal[];
   setGoals: React.Dispatch<React.SetStateAction<Goal[]>>;
-}> = ({ bodyWeight, goals, setGoals }) => {
+  hasVisited: boolean;
+}> = ({ bodyWeight, goals, setGoals, hasVisited }) => {
   const [helpOpen, setHelpOpen] = useState<boolean>(false);
   const [settingsOpen, setSettingsOpen] = useState<boolean>(false);
+  useEffect(() => {
+    if (!hasVisited) {
+      setHelpOpen(true);
+    }
+  }, [hasVisited]);
   return (
     <div style={{ display: 'flex', margin: '15px 0', padding: '0 15px' }}>
       <IconButton onClick={() => setHelpOpen(true)}>?</IconButton>

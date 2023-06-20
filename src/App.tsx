@@ -1,6 +1,6 @@
 import './App.css';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Bottom } from './Bottom';
 import { Distances } from './Distances';
@@ -19,15 +19,26 @@ import { Ratios } from './Ratios';
 import { Sliders } from './Sliders';
 
 function App() {
+  // on app load, check localstorage to see if this is the user's first visit
+  // if so, show help modal
+  const [hasVisited, setHasVisited] = useState(true);
+  useEffect(() => {
+    if (window.localStorage.getItem('hasVisited') !== '1') {
+      setHasVisited(false);
+      window.localStorage.setItem('hasVisited', '1');
+    }
+  }, []);
+  // app state
   const [goals, setGoals] = useState<Goal[]>(NIPPARD_GOALS);
   const bodyWeightInfo = useState(190);
   const [bodyWeight, setBodyWeight] = bodyWeightInfo;
-  const thresholds = computeThresholds(goals, bodyWeight);
   const [currentSquat, setCurrentSquat] = useState(beginnerValuesFromNippard.squat as number);
   const [currentBp, setCurrentBp] = useState(beginnerValuesFromNippard.bp as number);
   const [currentRow, setCurrentRow] = useState(beginnerValuesFromNippard.row as number);
   const [currentOhp, setCurrentOhp] = useState(beginnerValuesFromNippard.ohp as number);
   const [currentDl, setCurrentDl] = useState(beginnerValuesFromNippard.dl as number);
+  // derived state
+  const thresholds = computeThresholds(goals, bodyWeight);
   const currentWeights: LiftSlice = {
     squat: currentSquat,
     bp: currentBp,
@@ -69,7 +80,7 @@ function App() {
           setCurrentDl,
         }}
       />
-      <Bottom {...{ bodyWeight, goals, setGoals }} />
+      <Bottom {...{ bodyWeight, goals, setGoals, hasVisited }} />
     </div>
   );
 }
