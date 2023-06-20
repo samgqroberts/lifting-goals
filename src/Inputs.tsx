@@ -11,7 +11,7 @@ export const Inputs: React.FC<{
   minimums: LiftSlice;
   maximums: LiftSlice;
   asRatio: boolean;
-  bodyWeightInfo?: [number, React.Dispatch<React.SetStateAction<number>>];
+  bodyWeightInfo?: [number, (value: number) => void];
   currentSquat: number;
   currentBp: number;
   currentRow: number;

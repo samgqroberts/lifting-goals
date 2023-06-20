@@ -18,7 +18,7 @@ import {
 } from './Lifts';
 import { Ratios } from './Ratios';
 import { Sliders } from './Sliders';
-import { useLocalStorage } from './useLocalStorage';
+import { useRequiredLocalStorage } from './useLocalStorage';
 
 const HAS_VISITED_LOCALSTORAGE_KEY = 'hasVisited';
 const GOALS_LOCALSTORAGE_KEY = 'goals';
@@ -31,23 +31,17 @@ const safeJSONParse = (str: string): unknown => {
   }
 };
 
-const deserializeGoals = (str: string | undefined): Goal[] | undefined => {
-  if (!str) return undefined;
-  const rawParsed = safeJSONParse(str);
+const deserializeGoals = (value: string): Goal[] | undefined => {
+  const rawParsed = safeJSONParse(value);
   if (is(rawParsed, array(Goal))) {
     return rawParsed;
   }
   return undefined;
 };
 
-const useGoalsState = (): [Goal[], (value: Goal[]) => void] => {
-  const [goalsRaw, setGoalsRaw] = useLocalStorage(GOALS_LOCALSTORAGE_KEY, JSON.stringify(NIPPARD_GOALS));
-  const goalsParsed = deserializeGoals(goalsRaw);
-  const goals: Goal[] = goalsParsed ? goalsParsed : NIPPARD_GOALS;
-  const setGoals = (goals: Goal[]) => {
-    setGoalsRaw(JSON.stringify(goals));
-  };
-  return [goals, setGoals];
+const parseNumber = (value: string): number | undefined => {
+  const parsed = parseFloat(value);
+  return typeof parsed === 'number' && !isNaN(parsed) ? parsed : undefined;
 };
 
 function App() {
@@ -60,15 +54,33 @@ function App() {
       window.localStorage.setItem(HAS_VISITED_LOCALSTORAGE_KEY, '1');
     }
   }, []);
-  // app state
-  const [goals, setGoals] = useGoalsState();
-  const bodyWeightInfo = useState(190);
+  // other app state that's saved to localstorage
+  const [goals, setGoals] = useRequiredLocalStorage(GOALS_LOCALSTORAGE_KEY, NIPPARD_GOALS, [
+    deserializeGoals,
+    JSON.stringify,
+  ]);
+  const bodyWeightInfo = useRequiredLocalStorage('bodyWeight', 190, [parseNumber, (value) => '' + value]);
   const [bodyWeight, setBodyWeight] = bodyWeightInfo;
-  const [currentSquat, setCurrentSquat] = useState(beginnerValuesFromNippard.squat as number);
-  const [currentBp, setCurrentBp] = useState(beginnerValuesFromNippard.bp as number);
-  const [currentRow, setCurrentRow] = useState(beginnerValuesFromNippard.row as number);
-  const [currentOhp, setCurrentOhp] = useState(beginnerValuesFromNippard.ohp as number);
-  const [currentDl, setCurrentDl] = useState(beginnerValuesFromNippard.dl as number);
+  const [currentSquat, setCurrentSquat] = useRequiredLocalStorage('squat', beginnerValuesFromNippard.squat as number, [
+    parseNumber,
+    (value) => '' + value,
+  ]);
+  const [currentBp, setCurrentBp] = useRequiredLocalStorage('bp', beginnerValuesFromNippard.squat as number, [
+    parseNumber,
+    (value) => '' + value,
+  ]);
+  const [currentRow, setCurrentRow] = useRequiredLocalStorage('row', beginnerValuesFromNippard.squat as number, [
+    parseNumber,
+    (value) => '' + value,
+  ]);
+  const [currentOhp, setCurrentOhp] = useRequiredLocalStorage('ohp', beginnerValuesFromNippard.squat as number, [
+    parseNumber,
+    (value) => '' + value,
+  ]);
+  const [currentDl, setCurrentDl] = useRequiredLocalStorage('dl', beginnerValuesFromNippard.squat as number, [
+    parseNumber,
+    (value) => '' + value,
+  ]);
   // derived state
   const thresholds = computeThresholds(goals, bodyWeight);
   const currentWeights: LiftSlice = {
