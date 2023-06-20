@@ -65,19 +65,19 @@ function App() {
     parseNumber,
     (value) => '' + value,
   ]);
-  const [currentBp, setCurrentBp] = useRequiredLocalStorage('bp', beginnerValuesFromNippard.squat as number, [
+  const [currentBp, setCurrentBp] = useRequiredLocalStorage('bp', beginnerValuesFromNippard.bp as number, [
     parseNumber,
     (value) => '' + value,
   ]);
-  const [currentRow, setCurrentRow] = useRequiredLocalStorage('row', beginnerValuesFromNippard.squat as number, [
+  const [currentRow, setCurrentRow] = useRequiredLocalStorage('row', beginnerValuesFromNippard.row as number, [
     parseNumber,
     (value) => '' + value,
   ]);
-  const [currentOhp, setCurrentOhp] = useRequiredLocalStorage('ohp', beginnerValuesFromNippard.squat as number, [
+  const [currentOhp, setCurrentOhp] = useRequiredLocalStorage('ohp', beginnerValuesFromNippard.ohp as number, [
     parseNumber,
     (value) => '' + value,
   ]);
-  const [currentDl, setCurrentDl] = useRequiredLocalStorage('dl', beginnerValuesFromNippard.squat as number, [
+  const [currentDl, setCurrentDl] = useRequiredLocalStorage('dl', beginnerValuesFromNippard.dl as number, [
     parseNumber,
     (value) => '' + value,
   ]);
