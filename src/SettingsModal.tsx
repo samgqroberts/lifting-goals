@@ -36,7 +36,7 @@ const MAX_NUM_GOALS = 4;
 export const SettingsModal: React.FC<{
   bodyWeight: number;
   goals: Goal[];
-  setGoals: React.Dispatch<React.SetStateAction<Goal[]>>;
+  setGoals: (goals: Goal[]) => void;
   settingsOpen: boolean;
   setSettingsOpen: (value: boolean) => void;
 }> = ({ bodyWeight, goals, setGoals, settingsOpen, setSettingsOpen }) => {

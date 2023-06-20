@@ -1,14 +1,17 @@
+import { boolean, Infer, number, object, string } from 'superstruct';
+
 export type Lift = 'squat' | 'bp' | 'row' | 'ohp' | 'dl';
 
 export const LIFT_ORDER = ['squat', 'bp', 'row', 'ohp', 'dl'] as const;
 
-export interface LiftSlice {
-  squat: number;
-  bp: number;
-  row: number;
-  ohp: number;
-  dl: number;
-}
+export const LiftSlice = object({
+  squat: number(),
+  bp: number(),
+  row: number(),
+  ohp: number(),
+  dl: number(),
+});
+export type LiftSlice = Infer<typeof LiftSlice>;
 
 export interface Zones {
   min: LiftSlice;
@@ -82,11 +85,12 @@ const computeFromRatio = (bw: number, ratio: number, orm = true): number => {
   return roundTo5(value);
 };
 
-export interface Goal {
-  name: string;
-  basedOnBodyWeight: boolean;
-  values: LiftSlice;
-}
+export const Goal = object({
+  name: string(),
+  basedOnBodyWeight: boolean(),
+  values: LiftSlice,
+});
+export type Goal = Infer<typeof Goal>;
 
 export const NIPPARD_GOALS: Goal[] = [
   {

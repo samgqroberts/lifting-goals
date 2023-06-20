@@ -30,7 +30,7 @@ const IconButton: React.FC<ReactButtonProps> = ({ style: _style, ...props }) => 
 export const Bottom: React.FC<{
   bodyWeight: number;
   goals: Goal[];
-  setGoals: React.Dispatch<React.SetStateAction<Goal[]>>;
+  setGoals: (goals: Goal[]) => void;
   hasVisited: boolean;
 }> = ({ bodyWeight, goals, setGoals, hasVisited }) => {
   const [helpOpen, setHelpOpen] = useState<boolean>(false);
