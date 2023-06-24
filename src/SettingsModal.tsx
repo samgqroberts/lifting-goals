@@ -48,7 +48,7 @@ export const SettingsModal: React.FC<{
       // on open of the modal, whether first or subsequent time, ensure state is set to
       // prop value defaults
       setDraftGoals(goals);
-      setSelectedGoalName(null);
+      setSelectedGoalName('beginner');
     }
   }, [settingsOpen]);
   // derived state
@@ -136,36 +136,56 @@ export const SettingsModal: React.FC<{
                   }}
                 />
               </div>
-              <div style={{ marginTop: 6, display: 'flex', flexDirection: 'column' }}>
-                <label htmlFor="basedonbodyweight" style={{ fontSize: 12, fontWeight: 'bold', marginBottom: 2 }}>
-                  Based on Body Weight
-                </label>
-                <input
-                  id="basedonbodyweight"
-                  type="checkbox"
-                  style={{ width: 18, height: 18, padding: 0, margin: 0 }}
-                  defaultChecked={selectedGoal.basedOnBodyWeight}
-                  onChange={(e) => {
-                    if (selectedGoal.basedOnBodyWeight === e.target.checked) return;
-                    // update values to be the equivalents but as a proportion of body weight
-                    const newValues: LiftSlice = selectedGoal.basedOnBodyWeight
-                      ? {
-                          squat: roundTo5(bodyWeight * selectedGoal.values.squat),
-                          bp: roundTo5(bodyWeight * selectedGoal.values.bp),
-                          row: roundTo5(bodyWeight * selectedGoal.values.row),
-                          ohp: roundTo5(bodyWeight * selectedGoal.values.ohp),
-                          dl: roundTo5(bodyWeight * selectedGoal.values.dl),
-                        }
-                      : {
-                          squat: Math.round((100 * selectedGoal.values.squat) / bodyWeight) / 100,
-                          bp: Math.round((100 * selectedGoal.values.bp) / bodyWeight) / 100,
-                          row: Math.round((100 * selectedGoal.values.row) / bodyWeight) / 100,
-                          ohp: Math.round((100 * selectedGoal.values.ohp) / bodyWeight) / 100,
-                          dl: Math.round((100 * selectedGoal.values.dl) / bodyWeight) / 100,
-                        };
-                    updateSelectedGoal({ basedOnBodyWeight: e.target.checked, values: newValues });
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div style={{ marginTop: 6, display: 'flex', flexDirection: 'column' }}>
+                  <label htmlFor="basedonbodyweight" style={{ fontSize: 12, fontWeight: 'bold', marginBottom: 2 }}>
+                    Based on Body Weight
+                  </label>
+                  <input
+                    id="basedonbodyweight"
+                    type="checkbox"
+                    style={{ width: 18, height: 18, padding: 0, margin: 0 }}
+                    defaultChecked={selectedGoal.basedOnBodyWeight}
+                    onChange={(e) => {
+                      if (selectedGoal.basedOnBodyWeight === e.target.checked) return;
+                      // update values to be the equivalents but as a proportion of body weight
+                      const newValues: LiftSlice = selectedGoal.basedOnBodyWeight
+                        ? {
+                            squat: roundTo5(bodyWeight * selectedGoal.values.squat),
+                            bp: roundTo5(bodyWeight * selectedGoal.values.bp),
+                            row: roundTo5(bodyWeight * selectedGoal.values.row),
+                            ohp: roundTo5(bodyWeight * selectedGoal.values.ohp),
+                            dl: roundTo5(bodyWeight * selectedGoal.values.dl),
+                          }
+                        : {
+                            squat: Math.round((100 * selectedGoal.values.squat) / bodyWeight) / 100,
+                            bp: Math.round((100 * selectedGoal.values.bp) / bodyWeight) / 100,
+                            row: Math.round((100 * selectedGoal.values.row) / bodyWeight) / 100,
+                            ohp: Math.round((100 * selectedGoal.values.ohp) / bodyWeight) / 100,
+                            dl: Math.round((100 * selectedGoal.values.dl) / bodyWeight) / 100,
+                          };
+                      updateSelectedGoal({ basedOnBodyWeight: e.target.checked, values: newValues });
+                    }}
+                  />
+                </div>
+                <button
+                  style={{
+                    background: '#444',
+                    color: White,
+                    fontWeight: 'bold',
+                    border: `1px solid ${Red}`,
+                    padding: '0px 8px',
+                    margin: 4,
+                    borderRadius: 4,
+                    height: 24,
                   }}
-                />
+                  onClick={() => {
+                    setDraftGoals(draftGoals.filter((g) => g.name !== selectedGoalName));
+                    setSelectedGoalName(null);
+                  }}
+                >
+                  Delete
+                </button>
               </div>
               <Ratios
                 {...{ bodyWeight }}
