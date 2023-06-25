@@ -45,8 +45,8 @@ export const HelpModal: React.FC<{
       </Paragraph>
       <Paragraph>
         The rest of the display will update to show how those values line up with various <b>goal weights</b>.
-        Currently, a set of <b>default</b> goals are programmed in. These default goals have been derived from Jeff
-        Nippard&apos;s excellent video{' '}
+        Currently, a set of <b>default</b> goals are programmed in. These default goals have been derived from{' '}
+        <a href="https://www.youtube.com/channel/UC68TLK0mAEzUyHx5x5k-S1Q">Jeff Nippard&apos;s</a> excellent video{' '}
         <a href="https://www.youtube.com/watch?v=LrDJXIQ_-eg">How Strong Should You Be? (Noob To Freak)</a>, adjusted
         down by 80% to shift from one rep max to 5x5 values.
       </Paragraph>
