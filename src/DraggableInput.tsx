@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
-import { combineStyles, isNumber } from './utils';
+import { combineStyles, isNumber, toDigit } from './utils';
 
 export type DraggableInputChangeHandler = (value: number, input: HTMLInputElement | null) => void;
 
@@ -41,15 +41,23 @@ export const DraggableInput = ({
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [, setStartPos] = useState<[number, number]>([0, 0]);
   // style
-  const style = combineStyles({ cursor: 'ew-resize' }, _style);
+  const style = combineStyles({ cursor: 'ew-resize', userSelect: 'none' }, _style);
   // generic handlers
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = e.target.value;
+    // sanitize input
+    let newValue = '';
+    for (const char of e.target.value) {
+      const asDigit = toDigit(char);
+      if (asDigit !== undefined) {
+        newValue += asDigit;
+      }
+    }
+    const numberValue = parseInt(newValue);
     setValue(newValue);
-    if (isNaN(+newValue)) {
+    if (isNaN(numberValue)) {
       return;
     }
-    onChange?.(+newValue, inputRef.current);
+    onChange?.(+numberValue, inputRef.current);
   };
   const handleDragStart = useCallback(
     (newStartPos: [number, number]) => {
@@ -137,6 +145,8 @@ export const DraggableInput = ({
   }, []);
   return (
     <input
+      type="number"
+      className="draggable-input"
       {...props}
       value={value}
       style={style}
