@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Lift, LIFT_ORDER, LiftSlice, names, Threshold, Thresholds } from './Lifts';
-import { Red } from './styles';
+import { colorForZoneIndex, Red } from './styles';
 
 const getNextThreshold = (thresholds: Thresholds, lift: Lift, currentWeights: LiftSlice): Threshold | null => {
   return thresholds[lift].find((threshold) => currentWeights[lift] < threshold.value) || null;
@@ -96,7 +96,14 @@ export const Distance: React.FC<{ lift: Lift; thresholds: Thresholds; currentWei
           }}
         ></div>
       </div>
-      <span style={{ marginLeft: 5 }}>{nextLevel?.goalName}</span>
+      <span
+        style={{
+          marginLeft: 5,
+          borderBottom: nextLevel ? `4px solid ${colorForZoneIndex(nextLevel?.goalIndex)}` : 'none',
+        }}
+      >
+        {nextLevel?.goalName}
+      </span>
     </div>
   );
 };
