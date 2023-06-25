@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 
-import { LiftSlice } from './Lifts';
+import { LiftSlice, roundTo5 } from './Lifts';
 import { useContainerDimensions } from './useContainerDimensions';
 
 const percentify = (value: number) => `${(value * 100).toFixed(0)}%`;
@@ -34,6 +34,7 @@ const RatioRow: React.FC<{
   const proportionLabelMargin = 3;
   const fontSize = width === 'small' ? 12 : width === 'medium' ? 14 : 16;
   const middleWidth = width === 'small' ? 82 : width === 'medium' ? 96 : 104;
+  console.log({ name, weight });
   return (
     <div style={{ display: 'flex', fontSize }}>
       {/* left */}
@@ -104,11 +105,11 @@ export const Ratios: React.FC<{
   const width: Width = containerWidth < 300 ? 'small' : containerWidth < 400 ? 'medium' : 'goforit';
   const weightsInLb: LiftSlice = bodyWeightAsWeight
     ? {
-        squat: weights.squat * bodyWeight,
-        bp: weights.bp * bodyWeight,
-        row: weights.row * bodyWeight,
-        ohp: weights.ohp * bodyWeight,
-        dl: weights.dl * bodyWeight,
+        squat: roundTo5(weights.squat * bodyWeight),
+        bp: roundTo5(weights.bp * bodyWeight),
+        row: roundTo5(weights.row * bodyWeight),
+        ohp: roundTo5(weights.ohp * bodyWeight),
+        dl: roundTo5(weights.dl * bodyWeight),
       }
     : weights;
   const maxProportionLeft = Math.max(
