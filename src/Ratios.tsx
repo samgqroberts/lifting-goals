@@ -34,7 +34,6 @@ const RatioRow: React.FC<{
   const proportionLabelMargin = 3;
   const fontSize = width === 'small' ? 12 : width === 'medium' ? 14 : 16;
   const middleWidth = width === 'small' ? 82 : width === 'medium' ? 96 : 104;
-  console.log({ name, weight });
   return (
     <div style={{ display: 'flex', fontSize }}>
       {/* left */}

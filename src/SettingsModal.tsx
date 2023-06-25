@@ -113,7 +113,7 @@ export const SettingsModal: React.FC<{
             }}
             disabled={newGoalDisabled}
           >
-            ＋ New Goal
+            ＋ New Goal {newGoalDisabled ? '(4 max)' : ''}
           </button>
         </div>
         <hr style={{ border: 0, borderBottom: '1px solid #888', width: '100%' }} />
