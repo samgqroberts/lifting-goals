@@ -13,13 +13,23 @@ export const Modal: React.FC<{
   const { width } = useWindowDimensions();
   const maxWidth = 780;
   const minMarginSide = 30;
-  const marginSide = width < maxWidth ? minMarginSide : (width - maxWidth + minMarginSide * 2) / 2;
   return (
     <React.Fragment>
       {open && (
         <Portal className="modal-portal">
           {/* overall */}
-          <div style={{ display: 'flex', position: 'fixed', left: 0, top: 0, right: 0, bottom: 0 }}>
+          <div
+            style={{
+              display: 'flex',
+              position: 'fixed',
+              left: 0,
+              top: 0,
+              right: 0,
+              bottom: 0,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
             {/* backdrop */}
             <button
               style={{
@@ -38,11 +48,9 @@ export const Modal: React.FC<{
               style={{
                 display: 'flex',
                 flexDirection: 'column',
-                position: 'absolute',
-                left: marginSide,
-                top: 30,
-                right: marginSide,
-                bottom: 30,
+                maxHeight: 'calc(100% - 60px)',
+                maxWidth: width < maxWidth + minMarginSide * 2 ? `calc(100% - ${minMarginSide * 2}px)` : maxWidth,
+                zIndex: 2,
                 background: 'white',
                 borderRadius: 6,
               }}
