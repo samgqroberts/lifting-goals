@@ -19,17 +19,18 @@ import {
 import { Ratios } from './Ratios';
 import { Sliders } from './Sliders';
 import { useRequiredLocalStorage } from './useLocalStorage';
+import { parseNumber, safeJSONParse } from './utils';
 
-const HAS_VISITED_LOCALSTORAGE_KEY = 'hasVisited';
-const GOALS_LOCALSTORAGE_KEY = 'goals';
-
-const safeJSONParse = (str: string): unknown => {
-  try {
-    return JSON.parse(str);
-  } catch {
-    return undefined;
-  }
-};
+// all keys used to access data in localstorage
+const LOCALSTORAGE_KEYS = {
+  hasVisited: 'hasVisited',
+  goals: 'goals',
+  squat: 'squat',
+  bp: 'bp',
+  row: 'row',
+  ohp: 'ohp',
+  dl: 'dl',
+} as const;
 
 const deserializeGoals = (value: string): Goal[] | undefined => {
   const rawParsed = safeJSONParse(value);
@@ -39,48 +40,48 @@ const deserializeGoals = (value: string): Goal[] | undefined => {
   return undefined;
 };
 
-const parseNumber = (value: string): number | undefined => {
-  const parsed = parseFloat(value);
-  return typeof parsed === 'number' && !isNaN(parsed) ? parsed : undefined;
-};
-
 function App() {
   // on app load, check localstorage to see if this is the user's first visit
   // if so, show help modal
   const [hasVisited, setHasVisited] = useState(true);
   useEffect(() => {
-    if (window.localStorage.getItem(HAS_VISITED_LOCALSTORAGE_KEY) !== '1') {
+    if (window.localStorage.getItem(LOCALSTORAGE_KEYS.hasVisited) !== '1') {
       setHasVisited(false);
-      window.localStorage.setItem(HAS_VISITED_LOCALSTORAGE_KEY, '1');
+      window.localStorage.setItem(LOCALSTORAGE_KEYS.hasVisited, '1');
     }
   }, []);
   // other app state that's saved to localstorage
-  const [goals, setGoals] = useRequiredLocalStorage(GOALS_LOCALSTORAGE_KEY, NIPPARD_GOALS, [
+  const [goals, setGoals] = useRequiredLocalStorage(LOCALSTORAGE_KEYS.goals, NIPPARD_GOALS, [
     deserializeGoals,
     JSON.stringify,
   ]);
   const bodyWeightInfo = useRequiredLocalStorage('bodyWeight', 190, [parseNumber, (value) => '' + value]);
   const [bodyWeight, setBodyWeight] = bodyWeightInfo;
-  const [currentSquat, setCurrentSquat] = useRequiredLocalStorage('squat', beginnerValuesFromNippard.squat as number, [
-    parseNumber,
-    (value) => '' + value,
-  ]);
-  const [currentBp, setCurrentBp] = useRequiredLocalStorage('bp', beginnerValuesFromNippard.bp as number, [
-    parseNumber,
-    (value) => '' + value,
-  ]);
-  const [currentRow, setCurrentRow] = useRequiredLocalStorage('row', beginnerValuesFromNippard.row as number, [
-    parseNumber,
-    (value) => '' + value,
-  ]);
-  const [currentOhp, setCurrentOhp] = useRequiredLocalStorage('ohp', beginnerValuesFromNippard.ohp as number, [
-    parseNumber,
-    (value) => '' + value,
-  ]);
-  const [currentDl, setCurrentDl] = useRequiredLocalStorage('dl', beginnerValuesFromNippard.dl as number, [
-    parseNumber,
-    (value) => '' + value,
-  ]);
+  const [currentSquat, setCurrentSquat] = useRequiredLocalStorage(
+    LOCALSTORAGE_KEYS.squat,
+    beginnerValuesFromNippard.squat as number,
+    [parseNumber, (value) => '' + value],
+  );
+  const [currentBp, setCurrentBp] = useRequiredLocalStorage(
+    LOCALSTORAGE_KEYS.bp,
+    beginnerValuesFromNippard.bp as number,
+    [parseNumber, (value) => '' + value],
+  );
+  const [currentRow, setCurrentRow] = useRequiredLocalStorage(
+    LOCALSTORAGE_KEYS.row,
+    beginnerValuesFromNippard.row as number,
+    [parseNumber, (value) => '' + value],
+  );
+  const [currentOhp, setCurrentOhp] = useRequiredLocalStorage(
+    LOCALSTORAGE_KEYS.ohp,
+    beginnerValuesFromNippard.ohp as number,
+    [parseNumber, (value) => '' + value],
+  );
+  const [currentDl, setCurrentDl] = useRequiredLocalStorage(
+    LOCALSTORAGE_KEYS.dl,
+    beginnerValuesFromNippard.dl as number,
+    [parseNumber, (value) => '' + value],
+  );
   // derived state
   const thresholds = computeThresholds(goals, bodyWeight);
   const currentWeights: LiftSlice = {

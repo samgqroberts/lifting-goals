@@ -9,14 +9,20 @@ interface UniqueDraggableInputProps {
   onInput?: DraggableInputChangeHandler;
   value: number;
   /**
-   * Amount value changes on drag
+   * Amount value changes on drag (x dimension)
    */
   stepX?: number;
+  /**
+   * Amount value changes on drag (y dimension)
+   */
   stepY?: number;
   /**
-   * Number of pixels while dragging before adding `step` to value
+   * Number of pixels while dragging before adding `step` to value (x dimension)
    */
   pixelsPerStepX?: number;
+  /**
+   * Number of pixels while dragging before adding `step` to value (y dimension)
+   */
   pixelsPerStepY?: number;
   min?: number;
   max?: number;

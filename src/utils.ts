@@ -9,6 +9,19 @@ export const toDigit = (x: string): number | undefined => {
   return undefined;
 };
 
+export const parseNumber = (value: string): number | undefined => {
+  const parsed = parseFloat(value);
+  return typeof parsed === 'number' && !isNaN(parsed) ? parsed : undefined;
+};
+
+export const safeJSONParse = (str: string): unknown => {
+  try {
+    return JSON.parse(str);
+  } catch {
+    return undefined;
+  }
+};
+
 export type ReactButtonProps = React.DetailedHTMLProps<
   React.ButtonHTMLAttributes<HTMLButtonElement>,
   HTMLButtonElement
