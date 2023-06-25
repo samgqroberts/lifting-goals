@@ -49,7 +49,7 @@ export const LabeledDraggableInput: React.FC<LabeledDraggableInputProps> = ({
           fontWeight: 'bold',
         }}
       ></DraggableInput>
-      <label htmlFor={label} style={{ fontWeight: 'bold' }}>
+      <label htmlFor={label} style={{ fontWeight: 'bold', textAlign: 'center' }}>
         {label}
       </label>
     </div>

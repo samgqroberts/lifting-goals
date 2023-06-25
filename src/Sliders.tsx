@@ -1,31 +1,35 @@
-import { Fragment } from 'react';
+import { Fragment, useRef } from 'react';
 
 import { Lift, LIFT_ORDER, LiftSlice, minimums, names, Thresholds } from './Lifts';
 import { colorForZoneIndex, Red } from './styles';
-import { useWindowDimensions } from './useWindowDimensions';
+import { useContainerDimensions } from './useContainerDimensions';
 
 const Row: React.FC<{ thresholds: Thresholds; currentWeights: LiftSlice; lift: Lift }> = ({
   thresholds,
   currentWeights,
   lift,
 }) => {
-  const { width: windowWidth } = useWindowDimensions();
+  const divRef = useRef<HTMLDivElement>(null);
+  const { width: containerWidth } = useContainerDimensions(divRef);
   const min = minimums[lift];
   const defaultMax = thresholds[lift][thresholds[lift].length - 1].value;
   const max = Math.max(defaultMax, currentWeights[lift]);
   const ticks = Array.from(new Array(1 + Math.max(max - min, 0) / 5), (x, i) => i).map((x) => min + x * 5);
   const labelWidth = 50;
   const labelMarginLeft = 5;
-  const lineMarginRight = 10;
-  const lineWidth = windowWidth - labelWidth - lineMarginRight;
+  const lineMarginRight = 14;
+  const lineWidth = containerWidth - labelWidth - lineMarginRight;
   const tickSpan = lineWidth / (ticks.length - 1); // the extra 1 would dangle after the max
   const tickWidth = 1.5;
   return (
     <div
+      ref={divRef}
       style={{
         display: 'flex',
         alignItems: 'center',
         height: 32,
+        position: 'relative',
+        overflow: 'hidden',
       }}
     >
       <div
@@ -107,7 +111,7 @@ export const Sliders: React.FC<{ thresholds: Thresholds; currentWeights: LiftSli
   currentWeights,
 }) => {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', marginTop: 6 }}>
       {LIFT_ORDER.map((lift) => (
         <Row key={lift} {...{ thresholds, currentWeights, lift }} />
       ))}

@@ -13,6 +13,7 @@ export const HelpModal: React.FC<{
         style={{
           alignSelf: 'center',
           marginTop: 15,
+          marginBottom: 5,
           backgroundColor: Red,
           color: White,
           borderRadius: 25,
@@ -21,6 +22,7 @@ export const HelpModal: React.FC<{
       >
         5x5 Goals
       </h2>
+      <h4 style={{ margin: 0, textAlign: 'center', marginBottom: 12 }}>By samgqroberts</h4>
       <div style={{ padding: '8px 15px', fontSize: 14 }}>
         This app offers a dashboard view of your 5x5 lifting progress. It helps to contextualize where you are in
         relation to goals you can set. It also helps to visualize comparisons of your exercise weights.
@@ -43,7 +45,6 @@ export const HelpModal: React.FC<{
         <a href="https://stronglifts.com/5x5/">StrongLifts 5x5 workout plan</a>. However, this is NOT an official app of
         the StrongLifts brand.
       </div>
-      <div style={{ marginTop: 'auto', fontSize: 14, padding: '8px 15px' }}>Created by samgqroberts</div>
     </Modal>
   );
 };

@@ -94,37 +94,59 @@ function App() {
     <div
       style={{
         height: '100%',
+        width: '100%',
         display: 'flex',
-        flexDirection: 'column',
         overflow: 'hidden',
-        fontSize: 14,
+        justifyContent: 'center',
       }}
     >
-      <Sliders {...{ thresholds, currentWeights }} />
-      <Legend {...{ goals }} />
-      <Distances {...{ currentWeights, thresholds }} />
-      <Ratios bodyWeight={bodyWeight} weights={currentWeights} />
-      <Inputs
-        {...{
-          minimums: minimums,
-          maximums: maximums,
-          asRatio: false,
-          bodyWeightInfo,
-          bodyWeight,
-          currentSquat,
-          currentBp,
-          currentRow,
-          currentOhp,
-          currentDl,
-          setBodyWeight,
-          setCurrentSquat,
-          setCurrentBp,
-          setCurrentRow,
-          setCurrentOhp,
-          setCurrentDl,
+      <div
+        style={{
+          height: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          overflow: 'hidden',
+          fontSize: 14,
+          maxWidth: 1080,
+          flexGrow: 1,
         }}
-      />
-      <Bottom {...{ bodyWeight, goals, setGoals, hasVisited }} />
+      >
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            overflowY: 'auto',
+            flexGrow: 1,
+            paddingBottom: 10,
+          }}
+        >
+          <Sliders {...{ thresholds, currentWeights }} />
+          <Legend {...{ goals }} />
+          <Distances {...{ currentWeights, thresholds }} />
+          <Ratios bodyWeight={bodyWeight} weights={currentWeights} />
+        </div>
+        <Inputs
+          {...{
+            minimums: minimums,
+            maximums: maximums,
+            asRatio: false,
+            bodyWeightInfo,
+            bodyWeight,
+            currentSquat,
+            currentBp,
+            currentRow,
+            currentOhp,
+            currentDl,
+            setBodyWeight,
+            setCurrentSquat,
+            setCurrentBp,
+            setCurrentRow,
+            setCurrentOhp,
+            setCurrentDl,
+          }}
+        />
+        <Bottom {...{ bodyWeight, goals, setGoals, hasVisited }} />
+      </div>
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react';
 
 import { Portal } from './Portal';
+import { useWindowDimensions } from './useWindowDimensions';
 
 export const Modal: React.FC<{
   open: boolean;
@@ -9,6 +10,10 @@ export const Modal: React.FC<{
   iconSize?: number;
   iconColor?: string;
 }> = ({ open, onClose, children, iconSize = 24, iconColor = '#777' }) => {
+  const { width } = useWindowDimensions();
+  const maxWidth = 780;
+  const minMarginSide = 30;
+  const marginSide = width < maxWidth ? minMarginSide : (width - maxWidth + minMarginSide * 2) / 2;
   return (
     <React.Fragment>
       {open && (
@@ -34,15 +39,24 @@ export const Modal: React.FC<{
                 display: 'flex',
                 flexDirection: 'column',
                 position: 'absolute',
-                left: 30,
+                left: marginSide,
                 top: 30,
-                right: 30,
+                right: marginSide,
                 bottom: 30,
                 background: 'white',
                 borderRadius: 6,
               }}
             >
-              {children}
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  flexGrow: 1,
+                  overflowY: 'auto',
+                }}
+              >
+                {children}
+              </div>
               <div style={{ display: 'flex', marginTop: 5, marginBottom: 15 }}>
                 <button
                   style={{

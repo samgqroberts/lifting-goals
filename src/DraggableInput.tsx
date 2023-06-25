@@ -137,7 +137,6 @@ export const DraggableInput = ({
   }, []);
   return (
     <input
-      type="number"
       {...props}
       value={value}
       style={style}

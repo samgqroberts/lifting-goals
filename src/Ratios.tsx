@@ -30,7 +30,7 @@ const RatioRow: React.FC<{
 }) => {
   const derivedProportionLeft = (proportionLeft === null ? 1 : proportionLeft) / maxProportionLeft;
   const derivedProportionRight = (proportionRight === null ? 1 : proportionRight) / maxProportionRight;
-  const proportionLabelWidth = 36;
+  const proportionLabelWidth = width === 'small' ? 32 : width === 'medium' ? 36 : 40;
   const proportionLabelMargin = 3;
   const fontSize = width === 'small' ? 12 : width === 'medium' ? 14 : 16;
   const middleWidth = width === 'small' ? 82 : width === 'medium' ? 96 : 104;
@@ -101,7 +101,6 @@ export const Ratios: React.FC<{
 }> = ({ bodyWeight, weights, bodyWeightAsWeight = false }) => {
   const componentRef = useRef<HTMLDivElement>(null);
   const { width: containerWidth } = useContainerDimensions(componentRef);
-  console.log({ containerWidth });
   const width: Width = containerWidth < 300 ? 'small' : containerWidth < 400 ? 'medium' : 'goforit';
   const weightsInLb: LiftSlice = bodyWeightAsWeight
     ? {
