@@ -39,8 +39,10 @@ export const Inputs: React.FC<{
   setCurrentOhp,
   setCurrentDl,
 }) => {
-  const step = asRatio ? 0.01 : 5;
-  const pixelsPerStep = asRatio ? 2 : 3;
+  const stepX = asRatio ? 0.01 : 5;
+  const stepY = asRatio ? 0.01 : 5;
+  const pixelsPerStepX = asRatio ? 10 : 15;
+  const pixelsPerStepY = asRatio ? 10 : 15;
   return (
     <div
       style={combineStyles(
@@ -55,8 +57,10 @@ export const Inputs: React.FC<{
             label="Body Weight"
             value={bodyWeightInfo[0]}
             onChange={(e) => bodyWeightInfo[1](e)}
-            step={1}
-            pixelsPerStep={1}
+            stepX={1}
+            stepY={1}
+            pixelsPerStepX={8}
+            pixelsPerStepY={8}
             min={60}
             max={600}
           />
@@ -65,7 +69,7 @@ export const Inputs: React.FC<{
           label="Squat"
           value={currentSquat}
           onChange={(e) => setCurrentSquat(e)}
-          {...{ step, pixelsPerStep }}
+          {...{ stepX, stepY, pixelsPerStepX, pixelsPerStepY }}
           min={minimums.squat}
           max={maximums.squat}
         />
@@ -73,7 +77,7 @@ export const Inputs: React.FC<{
           label="Bench"
           value={currentBp}
           onChange={(e) => setCurrentBp(e)}
-          {...{ step, pixelsPerStep }}
+          {...{ stepX, stepY, pixelsPerStepX, pixelsPerStepY }}
           min={minimums.bp}
           max={maximums.squat}
         />
@@ -84,7 +88,7 @@ export const Inputs: React.FC<{
           label="Row"
           value={currentRow}
           onChange={(e) => setCurrentRow(e)}
-          {...{ step, pixelsPerStep }}
+          {...{ stepX, stepY, pixelsPerStepX, pixelsPerStepY }}
           min={minimums.row}
           max={maximums.row}
         />
@@ -92,7 +96,7 @@ export const Inputs: React.FC<{
           label="OHP"
           value={currentOhp}
           onChange={(e) => setCurrentOhp(e)}
-          {...{ step, pixelsPerStep }}
+          {...{ stepX, stepY, pixelsPerStepX, pixelsPerStepY }}
           min={minimums.ohp}
           max={maximums.ohp}
         />
@@ -100,7 +104,7 @@ export const Inputs: React.FC<{
           label="Deadlift"
           value={currentDl}
           onChange={(e) => setCurrentDl(e)}
-          {...{ step, pixelsPerStep }}
+          {...{ stepX, stepY, pixelsPerStepX, pixelsPerStepY }}
           min={minimums.dl}
           max={maximums.dl}
         />

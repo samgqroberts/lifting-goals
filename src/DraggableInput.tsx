@@ -11,11 +11,13 @@ interface UniqueDraggableInputProps {
   /**
    * Amount value changes on drag
    */
-  step?: number;
+  stepX?: number;
+  stepY?: number;
   /**
    * Number of pixels while dragging before adding `step` to value
    */
-  pixelsPerStep?: number;
+  pixelsPerStepX?: number;
+  pixelsPerStepY?: number;
   min?: number;
   max?: number;
 }
@@ -28,12 +30,15 @@ export const DraggableInput = ({
   style: _style = {},
   onChange,
   onInput,
-  pixelsPerStep: pixelsPerStepProp,
+  pixelsPerStepX: pixelsPerStepPropX,
+  pixelsPerStepY: pixelsPerStepPropY,
   ...props
 }: InputProps) => {
   // props
-  const step = isNumber(props.step) ? props.step : 1;
-  const pixelsPerStep = isNumber(pixelsPerStepProp) ? pixelsPerStepProp : 1;
+  const stepX = isNumber(props.stepX) ? props.stepX : 1;
+  const stepY = isNumber(props.stepY) ? props.stepY : 1;
+  const pixelsPerStepX = isNumber(pixelsPerStepPropX) ? pixelsPerStepPropX : 1;
+  const pixelsPerStepY = isNumber(pixelsPerStepPropY) ? pixelsPerStepPropY : 1;
   const { min, max } = props;
   // state
   const [value, setValue] = useState<number | string>('');
@@ -76,10 +81,11 @@ export const DraggableInput = ({
         const [startMouseX, startMouseY] = pos;
         const mouseDiffX = curMouseX - startMouseX;
         const mouseDiffY = -1 * (curMouseY - startMouseY); // -1 to make "up" make value larger
-        const stepsX = mouseDiffX / pixelsPerStep;
-        const stepsY = mouseDiffY / pixelsPerStep;
-        const steps = stepsX + stepsY;
-        const delta = Math.round(steps) * step;
+        const stepsX = mouseDiffX / pixelsPerStepX;
+        const stepsY = mouseDiffY / pixelsPerStepY;
+        const deltaX = Math.round(stepsX) * stepX;
+        const deltaY = Math.round(stepsY) * stepY;
+        const delta = deltaX + deltaY;
         let newValue = startValue.current + delta;
         if (min) newValue = Math.max(newValue, min);
         if (max) newValue = Math.min(newValue, max);
@@ -89,7 +95,7 @@ export const DraggableInput = ({
         return pos;
       });
     },
-    [max, min, pixelsPerStep, step, onInput, onChange],
+    [max, min, pixelsPerStepX, pixelsPerStepY, stepX, stepY, onInput, onChange],
   );
   // mouse event (desktop) handlers
   const handleMouseMove = useCallback(

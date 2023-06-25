@@ -6,8 +6,10 @@ interface UniqueDraggableInputProps {
   label: string;
   value: number;
   onChange: DraggableInputChangeHandler;
-  step?: number;
-  pixelsPerStep?: number;
+  stepX?: number;
+  stepY?: number;
+  pixelsPerStepX?: number;
+  pixelsPerStepY?: number;
   min?: number;
   max?: number;
 }
@@ -18,8 +20,10 @@ export const LabeledDraggableInput: React.FC<LabeledDraggableInputProps> = ({
   label,
   value,
   onChange,
-  step,
-  pixelsPerStep,
+  stepX,
+  stepY,
+  pixelsPerStepX,
+  pixelsPerStepY,
   min,
   max,
   style,
@@ -38,7 +42,7 @@ export const LabeledDraggableInput: React.FC<LabeledDraggableInputProps> = ({
     >
       <DraggableInput
         id={label}
-        {...{ value, onChange, step, pixelsPerStep, min, max }}
+        {...{ value, onChange, stepX, stepY, pixelsPerStepX, pixelsPerStepY, min, max }}
         style={{
           borderRadius: '50%',
           height: 30,
