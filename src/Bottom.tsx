@@ -31,22 +31,31 @@ export const Bottom: React.FC<{
   bodyWeight: number;
   goals: Goal[];
   setGoals: (goals: Goal[]) => void;
-  hasVisited: boolean;
-}> = ({ bodyWeight, goals, setGoals, hasVisited }) => {
+  hasDismissedHelpModal: boolean;
+  setHasDismissedHelpModal: (value: boolean) => void;
+}> = ({ bodyWeight, goals, setGoals, hasDismissedHelpModal, setHasDismissedHelpModal }) => {
   const [helpOpen, setHelpOpen] = useState<boolean>(false);
   const [settingsOpen, setSettingsOpen] = useState<boolean>(false);
   useEffect(() => {
-    if (!hasVisited) {
+    if (!hasDismissedHelpModal) {
       setHelpOpen(true);
     }
-  }, [hasVisited]);
+  }, [hasDismissedHelpModal]);
   return (
     <div style={{ display: 'flex', margin: '15px 0', padding: '0 15px' }}>
       <IconButton onClick={() => setHelpOpen(true)}>?</IconButton>
       <IconButton style={{ fontSize: 24, paddingBottom: 2, marginLeft: 10 }} onClick={() => setSettingsOpen(true)}>
         &#9881;
       </IconButton>
-      <HelpModal {...{ helpOpen, setHelpOpen }} />
+      <HelpModal
+        setHelpOpen={(value) => {
+          if (!value) {
+            setHasDismissedHelpModal(true);
+          }
+          setHelpOpen(value);
+        }}
+        {...{ helpOpen }}
+      />
       <SettingsModal {...{ bodyWeight, goals, setGoals, settingsOpen, setSettingsOpen }} />
     </div>
   );

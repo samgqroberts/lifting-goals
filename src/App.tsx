@@ -1,6 +1,5 @@
 import './App.css';
 
-import { useEffect, useState } from 'react';
 import { array, is } from 'superstruct';
 
 import { Bottom } from './Bottom';
@@ -23,7 +22,7 @@ import { parseNumber, safeJSONParse } from './utils';
 
 // all keys used to access data in localstorage
 const LOCALSTORAGE_KEYS = {
-  hasVisited: 'hasVisited',
+  hasDismissedHelpModal: 'hasDismissedHelpModal',
   goals: 'goals',
   squat: 'squat',
   bp: 'bp',
@@ -43,14 +42,12 @@ const deserializeGoals = (value: string): Goal[] | undefined => {
 function App() {
   // on app load, check localstorage to see if this is the user's first visit
   // if so, show help modal
-  const [hasVisited, setHasVisited] = useState(true);
-  useEffect(() => {
-    if (window.localStorage.getItem(LOCALSTORAGE_KEYS.hasVisited) !== '1') {
-      setHasVisited(false);
-      window.localStorage.setItem(LOCALSTORAGE_KEYS.hasVisited, '1');
-    }
-  }, []);
-  // other app state that's saved to localstorage
+  const [hasDismissedHelpModal, setHasDismissedHelpModal] = useRequiredLocalStorage(
+    LOCALSTORAGE_KEYS.hasDismissedHelpModal,
+    false,
+    [(raw) => (raw === 'true' ? true : raw === 'false' ? false : undefined), (parsed) => (parsed ? 'true' : 'false')],
+  );
+  // other app state that we persist in localstorage
   const [goals, setGoals] = useRequiredLocalStorage(LOCALSTORAGE_KEYS.goals, NIPPARD_GOALS, [
     deserializeGoals,
     JSON.stringify,
@@ -147,7 +144,7 @@ function App() {
             setCurrentDl,
           }}
         />
-        <Bottom {...{ bodyWeight, goals, setGoals, hasVisited }} />
+        <Bottom {...{ bodyWeight, goals, setGoals, hasDismissedHelpModal, setHasDismissedHelpModal }} />
       </div>
     </div>
   );
