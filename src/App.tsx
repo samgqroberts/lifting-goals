@@ -125,6 +125,7 @@ function App() {
           <Distances {...{ currentWeights, thresholds }} />
           <Ratios bodyWeight={bodyWeight} weights={currentWeights} />
         </div>
+        <h3 style={{ textAlign: 'center', margin: 0, marginTop: 10 }}>Current values</h3>
         <Inputs
           {...{
             minimums: minimums,
