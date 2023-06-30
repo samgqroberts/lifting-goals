@@ -38,11 +38,13 @@ export const DraggableInput = ({
   onInput,
   pixelsPerStepX: pixelsPerStepPropX,
   pixelsPerStepY: pixelsPerStepPropY,
+  stepX: stepXProp,
+  stepY: stepYProp,
   ...props
 }: InputProps) => {
   // props
-  const stepX = isNumber(props.stepX) ? props.stepX : 1;
-  const stepY = isNumber(props.stepY) ? props.stepY : 1;
+  const stepX = isNumber(stepXProp) ? stepXProp : 1;
+  const stepY = isNumber(stepYProp) ? stepYProp : 1;
   const pixelsPerStepX = isNumber(pixelsPerStepPropX) ? pixelsPerStepPropX : 1;
   const pixelsPerStepY = isNumber(pixelsPerStepPropY) ? pixelsPerStepPropY : 1;
   const { min, max } = props;
